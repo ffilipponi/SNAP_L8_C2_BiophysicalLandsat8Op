@@ -3,9 +3,7 @@
 A set of 4 different GPF graphs is proposed with the aim of setup Landsat-8 OLI data for the processing with Biophysical Processor.
 The Biophysical Processor integrated in SNAP 8 also supports Landsat-8 OLI as input data. Such processor requires zenith and azimuth angles both for sun and view to be provided together with BOA reflectances. Recently, Landsat Collection 2 (C2) datasets have been released, providing data with improved geometric accuracy and improved radiometric calibration. Landsat C2 dataset at Level 2 (L2) contains BOA reflectances, but no angles are provided. Landsat C2 dataset at Level 1 (L1) contains TOA reflectances, together with zenith and azimuth angles both for sun and view, that were not provided in the previous Collection 1 L1 dataset.
 The 'Sen2like' tool will be integrated in SNAP to harmonize Landsat-8 to Sentinel-2, in order to generate denser time series and improve Earth monitoring. Since Landsat C2 reader is not yet available in SNAP 8, and Sen2Like is not yet integrated, there is the need of a procedure to easily combine BOA reflectances with zenith and azimuth angles both for sun and view, in order to use the Biophysical Processor.
-I propose here a set of GPF graphs to combine Landsat-8 BOA reflectances with zenith and azimuth angles both for sun and view in order to execute the operator 'Biophysical Processor LANDSAT8' (BiophysicalLandsat8Op).
-
-The following graphs are proposed in the following posts:
+I propose here a set of GPF graphs to combine Landsat-8 BOA reflectances with zenith and azimuth angles both for sun and view in order to execute the operator 'Biophysical Processor LANDSAT8' (BiophysicalLandsat8Op):
 
 * L8_C2_L1_L2_stacking.xml      Combines Landsat-8 OLI C2 L1 (angles) with Landsat-8 OLI C2 L2 (BOA reflectances)
 * L8_C2_BiophysicalOp.xml       Combines Landsat-8 OLI C2 L1 (angles) with Landsat-8 OLI C2 L2 (BOA reflectances) and execute Biophysical Processor
