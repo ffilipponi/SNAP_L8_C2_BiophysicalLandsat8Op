@@ -1,4 +1,4 @@
-# Workflow to setup LANDSAT8 OLI data to processed with Biophysical Processor (SNAP_L8_C2_BiophysicalLandsat8Op)
+# Workflow to setup LANDSAT8 OLI data to be processed with Biophysical Processor (SNAP_L8_C2_BiophysicalLandsat8Op)
 
 A set of 4 different GPF graphs is proposed with the aim of setup Landsat-8 OLI data for the processing with Biophysical Processor.
 The Biophysical Processor integrated in SNAP 8 also supports Landsat-8 OLI as input data. Such processor requires zenith and azimuth angles both for sun and view to be provided together with BOA reflectances. Recently, Landsat Collection 2 (C2) datasets have been released, providing data with improved geometric accuracy and improved radiometric calibration. Landsat C2 dataset at Level 2 (L2) contains BOA reflectances, but no angles are provided. Landsat C2 dataset at Level 1 (L1) contains TOA reflectances, together with zenith and azimuth angles both for sun and view, that were not provided in the previous Collection 1 L1 dataset.
