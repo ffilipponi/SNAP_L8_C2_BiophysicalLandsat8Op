@@ -1,0 +1,248 @@
+<graph id="L8_C2_BiophysicalOp">
+  <version>1.0</version>
+  <!-- 
+    <root xmlns:copyright="http://www.w3.org/1999/xhtml">
+      <metadata>
+        <author name="Federico Filipponi" />
+        <author contact="federico.filipponi@gmail.com" />
+        <copyright name="CC BY-NC-SA" />
+        <license type="GPL" />
+        <license version="3" />
+      </metadata>
+    </root>
+  -->
+  <!-- usage example: 
+  gpt L8_C2_BiophysicalOp.xml -PcomputeLAI=true -PcomputeFapar=true -PcomputeFcover=true -Pformat=BEAM-DIMAP -Poutput=/data/LC08_L2SP_190031_20201214_20201219_02_T1_biophysicalLandsat.dim -Pinput_B3=/data/LC08_L2SP_190031_20201214_20201219_02_T1/LC08_L2SP_190031_20201214_20201219_02_T1_SR_B3.TIF -Pinput_B4=/data/LC08_L2SP_190031_20201214_20201219_02_T1/LC08_L2SP_190031_20201214_20201219_02_T1_SR_B4.TIF -Pinput_B5=/data/LC08_L2SP_190031_20201214_20201219_02_T1/LC08_L2SP_190031_20201214_20201219_02_T1_SR_B5.TIF -Pinput_B6=/data/LC08_L2SP_190031_20201214_20201219_02_T1/LC08_L2SP_190031_20201214_20201219_02_T1_SR_B6.TIF -Pinput_B7=/data/LC08_L2SP_190031_20201214_20201219_02_T1/LC08_L2SP_190031_20201214_20201219_02_T1_SR_B7.TIF -Pinput_SZA=/data/LC08_L1TP_190031_20201214_20201219_02_T1/LC08_L1TP_190031_20201214_20201219_02_T1_SZA.TIF -Pinput_SAA=/data/LC08_L1TP_190031_20201214_20201219_02_T1/LC08_L1TP_190031_20201214_20201219_02_T1_SAA.TIF -Pinput_VZA=/data/LC08_L1TP_190031_20201214_20201219_02_T1/LC08_L1TP_190031_20201214_20201219_02_T1_VZA.TIF -Pinput_VAA=/data/LC08_L1TP_190031_20201214_20201219_02_T1/LC08_L1TP_190031_20201214_20201219_02_T1_VAA.TIF
+  -->
+  <node id="Read_B3">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input_B3}</file>
+    </parameters>
+  </node>
+  <node id="Read_B4">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input_B4}</file>
+    </parameters>
+  </node>
+  <node id="Read_B5">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input_B5}</file>
+    </parameters>
+  </node>
+  <node id="Read_B6">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input_B6}</file>
+    </parameters>
+  </node>
+  <node id="Read_B7">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input_B7}</file>
+    </parameters>
+  </node>
+  <node id="Read_SZA">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input_SZA}</file>
+      <formatName>GeoTIFF</formatName>
+      <sourceMasks></sourceMasks>
+    </parameters>
+  </node>
+  <node id="Read_SAA">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input_SAA}</file>
+      <formatName>GeoTIFF</formatName>
+      <sourceMasks></sourceMasks>
+    </parameters>
+  </node>
+  <node id="Read_VZA">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input_VZA}</file>
+      <formatName>GeoTIFF</formatName>
+      <sourceMasks></sourceMasks>
+    </parameters>
+  </node>
+  <node id="Read_VAA">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input_VAA}</file>
+      <formatName>GeoTIFF</formatName>
+      <sourceMasks></sourceMasks>
+    </parameters>
+  </node>
+  <node id="BandMaths">
+    <operator>BandMaths</operator>
+    <sources>
+      <sourceProduct1 refid="Read_B3"/>
+      <sourceProduct2 refid="Read_B4"/>
+      <sourceProduct3 refid="Read_B5"/>
+      <sourceProduct4 refid="Read_B6"/>
+      <sourceProduct5 refid="Read_B7"/>
+      <sourceProduct6 refid="Read_SZA"/>
+      <sourceProduct7 refid="Read_SAA"/>
+      <sourceProduct8 refid="Read_VZA"/>
+      <sourceProduct9 refid="Read_VAA"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <targetBands>
+        <targetBand>
+          <name>green</name>
+          <expression>((($sourceProduct1.band_1 &gt; 7273) and ($sourceProduct1.band_1 &lt; 43637) and ($sourceProduct1.band_1 &gt; 0)) ? (0.0000275 * $sourceProduct1.band_1 - 0.2) : NaN)</expression>
+          <description>Green (OLI)</description>
+          <type>float32</type>
+          <unit>dl</unit>
+          <noDataValue>NaN</noDataValue>
+          <spectralWavelength>560.0</spectralWavelength>
+          <spectralBandwidth>60.0</spectralBandwidth>
+        </targetBand>
+        <targetBand>
+          <name>red</name>
+          <expression>((($sourceProduct2.band_1 &gt; 7273) and ($sourceProduct2.band_1 &lt; 43637) and ($sourceProduct2.band_1 &gt; 0)) ? (0.0000275 * $sourceProduct2.band_1 - 0.2) : NaN)</expression>
+          <description>Red (OLI)</description>
+          <type>float32</type>
+          <unit>dl</unit>
+          <noDataValue>NaN</noDataValue>
+          <spectralWavelength>655.0</spectralWavelength>
+          <spectralBandwidth>30.0</spectralBandwidth>
+        </targetBand>
+        <targetBand>
+          <name>near_infrared</name>
+          <expression>((($sourceProduct3.band_1 &gt; 7273) and ($sourceProduct3.band_1 &lt; 43637) and ($sourceProduct3.band_1 &gt; 0)) ? (0.0000275 * $sourceProduct3.band_1 - 0.2) : NaN)</expression>
+          <description>Near-Infrared (NIR) (OLI)</description>
+          <type>float32</type>
+          <unit>dl</unit>
+          <noDataValue>NaN</noDataValue>
+          <spectralWavelength>865.0</spectralWavelength>
+          <spectralBandwidth>30.0</spectralBandwidth>
+        </targetBand>
+        <targetBand>
+          <name>swir_1</name>
+          <expression>((($sourceProduct4.band_1 &gt; 7273) and ($sourceProduct4.band_1 &lt; 43637) and ($sourceProduct4.band_1 &gt; 0)) ? (0.0000275 * $sourceProduct4.band_1 - 0.2) : NaN)</expression>
+          <description>Short Wavelength Infrared (SWIR) 1 (OLI)</description>
+          <type>float32</type>
+          <unit>dl</unit>
+          <noDataValue>NaN</noDataValue>
+          <spectralWavelength>1610.0</spectralWavelength>
+          <spectralBandwidth>80.0</spectralBandwidth>
+        </targetBand>
+        <targetBand>
+          <name>swir_2</name>
+          <expression>((($sourceProduct5.band_1 &gt; 7273) and ($sourceProduct5.band_1 &lt; 43637) and ($sourceProduct5.band_1 &gt; 0)) ? (0.0000275 * $sourceProduct5.band_1 - 0.2) : NaN)</expression>
+          <description>Short Wavelength Infrared (SWIR) 2 (OLI)</description>
+          <type>float32</type>
+          <unit>dl</unit>
+          <noDataValue>NaN</noDataValue>
+          <spectralWavelength>2200.0</spectralWavelength>
+          <spectralBandwidth>180.0</spectralBandwidth>
+        </targetBand>
+        <targetBand>
+          <name>sun_zenith</name>
+          <expression>(($sourceProduct6.band_1 != 0) ? ($sourceProduct6.band_1 * 0.01) : NaN)</expression>
+          <description>Sun zenith angles</description>
+          <type>float32</type>
+          <unit>dl</unit>
+          <noDataValue>NaN</noDataValue>
+        </targetBand>
+        <targetBand>
+          <name>sun_azimuth</name>
+          <expression>(($sourceProduct7.band_1 != 0) ? ($sourceProduct7.band_1 * 0.01) : NaN)</expression>
+          <description>Sun azimuth angles</description>
+          <type>float32</type>
+          <unit>dl</unit>
+          <noDataValue>NaN</noDataValue>
+        </targetBand>
+        <targetBand>
+          <name>view_zenith_mean</name>
+          <expression>(($sourceProduct8.band_1 != 0) ? ($sourceProduct8.band_1 * 0.01) : NaN)</expression>
+          <description>Viewing incidence zenith angle</description>
+          <type>float32</type>
+          <unit>dl</unit>
+          <noDataValue>NaN</noDataValue>
+        </targetBand>
+        <targetBand>
+          <name>view_azimuth_mean</name>
+          <expression>(($sourceProduct9.band_1 != 0) ? ($sourceProduct9.band_1 * 0.01) : NaN)</expression>
+          <description>Viewing incidence azimuth angle</description>
+          <type>float32</type>
+          <unit>dl</unit>
+          <noDataValue>NaN</noDataValue>
+        </targetBand>
+      </targetBands>
+    </parameters>
+  </node>
+  <node id="BiophysicalOp">
+    <operator>BiophysicalLandsat8Op</operator>
+    <sources>
+      <sourceProduct refid="BandMaths"/>
+    </sources>
+    <parameters>
+      <computeLAI>${computeLAI}</computeLAI>
+      <computeFapar>${computeFapar}</computeFapar>
+      <computeFcover>${computeFcover}</computeFcover>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="BiophysicalOp"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output}</file>
+      <formatName>${format}</formatName>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description>Apply Biophysical Operator on Landsat8 Collection 2</Description>
+    <node id="Read_B3">
+      <displayPosition x="30.0" y="20.0"/>
+    </node>
+    <node id="Read_B4">
+      <displayPosition x="30.0" y="50.0"/>
+    </node>
+    <node id="Read_B5">
+      <displayPosition x="30.0" y="80.0"/>
+    </node>
+    <node id="Read_B6">
+      <displayPosition x="30.0" y="110.0"/>
+    </node>
+    <node id="Read_B7">
+      <displayPosition x="30.0" y="140.0"/>
+    </node>
+    <node id="Read_SZA">
+      <displayPosition x="30.0" y="200.0"/>
+    </node>
+    <node id="Read_SAA">
+      <displayPosition x="30.0" y="230.0"/>
+    </node>
+    <node id="Read_VZA">
+      <displayPosition x="30.0" y="260.0"/>
+    </node>
+    <node id="Read_VAA">
+      <displayPosition x="30.0" y="290.0"/>
+    </node>
+    <node id="BandMaths">
+      <displayPosition x="150.0" y="170.0"/>
+    </node>
+    <node id="BiophysicalOp">
+      <displayPosition x="270.0" y="170.0"/>
+    </node>
+    <node id="Write">
+      <displayPosition x="390.0" y="170.0"/>
+    </node>
+  </applicationData>
+</graph>
